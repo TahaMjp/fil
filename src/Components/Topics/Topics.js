@@ -1,13 +1,12 @@
 import { useContext } from "react";
-import { topicContext } from "../App/App";
+import { myContext } from "../App/App";
 
 const Topics = () => {
-  let topicAPI = useContext(topicContext);
-
+  let topicAPI = useContext(myContext);
   return (
     <>
       {" "}
-      {topicAPI.map((Element, index) => {
+      {topicAPI["topics"].map((Element, index) => {
         return (
           <button
             className="p-2 border-2 text-center hover:bg-black hover:text-white font-semibold"
