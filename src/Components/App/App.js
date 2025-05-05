@@ -29,8 +29,13 @@ const App = () => {
         `https://api.unsplash.com/photos/?client_id=${key}`
       );
       let res = await data.json();
-      const urls = res.map((elem) => elem.urls.regular);
-      setImages(urls);
+      const imagesData = res.map((elem) => ({
+        url: elem.urls.regular,
+        description: elem.description,
+        creatorName: elem.user.name,
+        creatorImage: elem.user.profile_image.large,
+      }));
+      setImages(imagesData);
     } catch (e) {
       console.log(e.message);
     }
