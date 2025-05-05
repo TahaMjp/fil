@@ -8,7 +8,6 @@ const App = () => {
   const key = "SuC_yiyvIn01AbreK2D3npVFAzNWEVK_Vuxa4ezh-R4";
 
   const [topics, setTopics] = useState([]);
-  const [specificTopic, setSpecificTopic] = useState("");
   const [images, setImages] = useState([]);
 
   const fetchTopics = async () => {
@@ -42,11 +41,11 @@ const App = () => {
     }
   };
 
-  const fetchSpecificTopic = async () => {
+  const fetchSpecificTopic = async (SpecificTopic) => {
     try {
       await setImages([]);
       let data = await fetch(
-        `https://api.unsplash.com/topics/${specificTopic}/photos?per_page=30&page=1&client_id=${key}`
+        `https://api.unsplash.com/topics/${SpecificTopic}/photos?per_page=30&page=1&client_id=${key}`
       );
       let res = await data.json();
       const imagesData = res.map((elem) => ({
@@ -67,7 +66,7 @@ const App = () => {
   }, []);
 
   return (
-    <myContext.Provider value={{ topics, images }}>
+    <myContext.Provider value={{ topics, images, fetchSpecificTopic }}>
       <Wrapper />
     </myContext.Provider>
   );

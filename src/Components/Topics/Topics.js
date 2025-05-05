@@ -3,7 +3,6 @@ import { myContext } from "../App/App";
 
 const Topics = () => {
   let topicAPI = useContext(myContext);
-
   return (
     <>
       {" "}
@@ -12,6 +11,9 @@ const Topics = () => {
           <button
             className="p-2 border-2 text-center hover:bg-black hover:text-white font-semibold"
             key={index}
+            onClick={() => {
+              topicAPI.fetchSpecificTopic(Element);
+            }}
           >
             {" "}
             {Element}{" "}
