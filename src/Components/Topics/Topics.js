@@ -3,6 +3,7 @@ import { myContext } from "../App/App";
 
 const Topics = () => {
   let topicAPI = useContext(myContext);
+
   return (
     <>
       {" "}

@@ -8,6 +8,7 @@ const App = () => {
   const key = "SuC_yiyvIn01AbreK2D3npVFAzNWEVK_Vuxa4ezh-R4";
 
   const [topics, setTopics] = useState([]);
+  const [specificTopic, setSpecificTopic] = useState("");
   const [images, setImages] = useState([]);
 
   const fetchTopics = async () => {
@@ -23,10 +24,29 @@ const App = () => {
     }
   };
 
-  const fetchImages = async () => {
+  const HomepageImages = async () => {
     try {
       let data = await fetch(
-        `https://api.unsplash.com/photos/?client_id=${key}`
+        `https://api.unsplash.com/photos?per_page=30&page=1&client_id=${key}`
+      );
+      let res = await data.json();
+      const imagesData = res.map((elem) => ({
+        url: elem.urls.regular,
+        description: elem.description,
+        creatorName: elem.user.name,
+        creatorImage: elem.user.profile_image.large,
+      }));
+      setImages(imagesData);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const fetchSpecificTopic = async () => {
+    try {
+      await setImages([]);
+      let data = await fetch(
+        `https://api.unsplash.com/topics/${specificTopic}/photos?per_page=30&page=1&client_id=${key}`
       );
       let res = await data.json();
       const imagesData = res.map((elem) => ({
@@ -43,7 +63,7 @@ const App = () => {
 
   useEffect(() => {
     fetchTopics();
-    fetchImages();
+    HomepageImages();
   }, []);
 
   return (

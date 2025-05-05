@@ -9,10 +9,7 @@ const Getimage = () => {
       {" "}
       {imagesAPI["images"].map((Element, index) => {
         return (
-          <div
-            className="bg-violet-400 break-inside-avoid mb-3 relative group"
-            key={index}
-          >
+          <div className="break-inside-avoid mb-3 relative group" key={index}>
             <a href={Element.url}>
               <div className="flex h-full justify-center w-full flex-col items-center gap-y-4 absolute z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-semibold">
                 {" "}
