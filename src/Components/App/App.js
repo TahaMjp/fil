@@ -9,8 +9,6 @@ const App = () => {
 
   const [topics, setTopics] = useState([]);
   const [images, setImages] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
-  const [lastFetch, setlastFetch] = useState(null);
 
   const fetchTopics = async () => {
     try {
@@ -26,11 +24,9 @@ const App = () => {
   };
 
   const HomepageImages = async () => {
-    setlastFetch(() => HomepageImages);
-
     try {
       let data = await fetch(
-        `https://api.unsplash.com/photos?per_page=30&page=${pageNum}&client_id=${key}`
+        `https://api.unsplash.com/photos?per_page=30&page=1&client_id=${key}`
       );
       let res = await data.json();
       const imagesData = res.map((elem) => ({
@@ -46,12 +42,10 @@ const App = () => {
   };
 
   const fetchSpecificTopic = async (SpecificTopic) => {
-    setlastFetch(() => fetchSpecificTopic);
-
     try {
       await setImages([]);
       let data = await fetch(
-        `https://api.unsplash.com/topics/${SpecificTopic}/photos?per_page=10&page=${pageNum}&client_id=${key}`
+        `https://api.unsplash.com/topics/${SpecificTopic}/photos?per_page=10&page=1&client_id=${key}`
       );
       let res = await data.json();
       const imagesData = res.map((elem) => ({
@@ -77,9 +71,6 @@ const App = () => {
         topics,
         images,
         fetchSpecificTopic,
-        pageNum,
-        setPageNum,
-        lastFetch,
       }}
     >
       <Wrapper />
