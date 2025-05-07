@@ -14,7 +14,12 @@ const Searchinp = () => {
         id="searchInp"
         className="w-9/12 border-2 p-2 "
         placeholder="Search ..."
-      />
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            SearchAPI.fetchSearchedPhoto(inputRef.current.value);
+          }
+        }}
+      />{" "}
       <button
         className="w-2/12 p-2 text-center border-2 hover:bg-black hover:text-white font-semibold"
         onClick={() => {
