@@ -45,12 +45,32 @@ const App = () => {
     try {
       await setImages([]);
       let data = await fetch(
-        `https://api.unsplash.com/topics/${SpecificTopic}/photos?per_page=10&page=1&client_id=${key}`
+        `https://api.unsplash.com/topics/${SpecificTopic}/photos?per_page=30&page=1&client_id=${key}`
       );
       let res = await data.json();
       const imagesData = res.map((elem) => ({
         url: elem.urls.regular,
         description: elem.description,
+        creatorName: elem.user.name,
+        creatorImage: elem.user.profile_image.large,
+      }));
+      setImages(imagesData);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
+  const fetchSearchedPhoto = async (SearchedPhoto) => {
+    try {
+      await setImages([]);
+      let data = await fetch(
+        `https://api.unsplash.com/search/photos?page=1&per_page=30&query=${SearchedPhoto}&client_id=${key}`
+      );
+
+      let res = await data.json();
+      const imagesData = res["results"].map((elem) => ({
+        url: elem.urls.regular,
+        description: elem.alt_description,
         creatorName: elem.user.name,
         creatorImage: elem.user.profile_image.large,
       }));
@@ -71,6 +91,7 @@ const App = () => {
         topics,
         images,
         fetchSpecificTopic,
+        fetchSearchedPhoto,
       }}
     >
       <Wrapper />
